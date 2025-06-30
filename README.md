@@ -4,7 +4,8 @@
 
 [![Build Status](https://img.shields.io/badge/Build-Success-brightgreen)](https://github.com/yourusername/visionos-game-theory/actions)  
 [![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)  
-[![Deployment](https://img.shields.io/badge/Deploy-TestFlight-orange)](https://testflight.apple.com)
+[![Deployment](https://img.shields.io/badge/Deploy-TestFlight-orange)](https://testflight.apple.com)  
+[![ngrok](https://img.shields.io/badge/ngrok-Expose_Local-brightgreen)](https://ngrok.com/)
 
 ---
 
@@ -17,7 +18,7 @@
 
 ---
 
-## 🛠️ Getting Started  
+## 🛠️ Getting Started With ngrok Integration  
 
 ### Prerequisites  
 ```bash
@@ -26,40 +27,20 @@
 - macOS Ventura Beta+  
 
 # Backend Requirements  
-brew install node@20 python3  
+brew install node@20 python3 ngrok
 ```
 
-### Project Setup Steps  
-
-#### VisionOS App Development Environment  
+### Local Development with ngrok Tunneling  
 ```bash
-# Create project structure  
-mkdir visionos-game-theory  
-cd visionos-game-theory  
-
-# Initialize VisionOS project via Xcode CLI tools  
-xcrun visionos create GameTheoryApp  
-
-# Install dependencies via Swift Package Manager  
-swift package add https://github.com/pointfreeco/swift-composable-architecture.git  
-swift package add https://github.com/RealityKit/ModelIO.git  
-
-# Build and run locally  
-cd GameTheoryApp.xcodeproj  
-open GameTheoryApp.xcodeproj # Open in Xcode Beta
-```
-
-#### Backend Services Setup  
-```bash
-# Node.js/TypeScript Layer  
+# Start backend services locally  
 cd backend  
-npm install express socket.io typescript ts-node @types/express  
+npm run dev  
 
-# Python ML Services Layer  
-cd ../ml-services  
-python3 -m venv env  
-source env/bin/activate  
-pip install fastapi uvicorn coremltools
+# Expose local server externally using ngrok  
+ngrok http 3001 --subdomain=game-theory
+
+# You'll receive a public URL like:
+https://game-theory-12345678.ngrok.io
 ```
 
 ---
@@ -68,11 +49,11 @@ pip install fastapi uvicorn coremltools
 
 ### Run Local Development Server  
 ```bash
-# Start backend services  
+# Start backend services locally  
 cd backend  
 npm run dev  
 
-# Start Python ML service  
+# Start Python ML service locally  
 cd ../ml-services  
 uvicorn app.main:app --reload
 ```
@@ -84,25 +65,6 @@ User selects strategy →
 ML model analyzes decision via HTTP API → 
 Backend updates scene visualization → 
 VisionOS app shows payoff matrix animation
-```
-
-### Example API Response  
-```json
-{
-  "status": "success",
-  "data": {
-    "spatial_scene": {
-      "nodes": [
-        {"id": "nash1", "position": [0.5, 1.2, -3.4], "color": "#FFD700"},
-        {"id": "dominant2", "position": [1.8, 0.9, -4.1], "color": "#32CD32"}
-      ]
-    },
-    "ml_analysis": {
-      "predicted_concept": "Mixed Strategy",
-      "confidence_score": 0.92
-    }
-  }
-}
 ```
 
 ---
@@ -129,11 +91,20 @@ graph LR
 
 ---
 
-## 🤖 Core Technologies Used  
-- **VisionOS SDK**: RealityKit, ARKit spatial audio engine  
-- **SwiftUI Integration**: 3D UI components reacting to gaze/eye tracking  
-- **Backend Stack**: Node.js + Express.js for real-time communication  
-- **ML Services**: Python FastAPI serving Core ML models optimized for Apple silicon  
+## 🧪 ngrok Integration Workflow  
+
+```mermaid
+graph LR
+    A[Local Development] --> B(ngrok Tunnel)
+    B --> C(Public URL for Testing)
+    
+    subgraph ngrok Features
+        D[Secure Tunneling] --> E(HTTPS by Default)
+        F[Custom Domains] --> G(Private Networks)
+    end
+    
+    style A fill:#f96
+```
 
 ---
 
@@ -165,31 +136,61 @@ visionos-game-theory/
 - Node.js Services → Vercel/AWS Lambda  
 - ML Services → AWS SageMaker/FastAPI containers  
 
-# CI/CD Integration  
-GitHub Actions workflow for automated testing and deployment
+# ngrok for Local Testing
+ngrok http backend:3001 --subdomain=game-theory
 ```
 
 ---
 
-## 🤝 Contributing  
-1. Fork the repository  
-2. Create feature branch (`git checkout -b spatial-ui-enhancement`)  
-3. Commit changes (`git commit -am "Add new visualization pattern"`)  
-4. Push branch (`git push origin spatial-ui-enhancement`)  
-5. Open Pull Request  
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+## 📚 ngrok Usage Notes  
+- **Development**: Use ngrok tunnels during local testing phases (`ngrok http backend:3001`)
+- **Testing**: Share ngrok URLs securely with QA teams during testing cycles
+- **Documentation**: [ngrok Documentation](https://ngrok.com/docs) for advanced tunneling options
 
 ---
 
-## 📚 License  
+## 🤝 Contributing  
+Join our development journey!  
+
+1. Fork the repository  
+2. Create feature branch (`git checkout -b spatial-ui-enhancement`)  
+3. Commit changes (`git commit -am "Add ngrok integration notes"`)  
+4. Push branch (`git push origin spatial-ui-enhancement`)  
+5. Open Pull Request  
+
+---
+
+## 📞 Thank You & Sponsors  
+
+We extend special thanks to the tools and services that make development possible:
+
+### 🛠️ Development Tools  
+- [ngrok](https://ngrok.com/) - Expose local servers securely during development/testing phases  
+- Xcode Beta SDK Team  
+- RealityKit Framework Contributors  
+
+### 📚 Documentation Resources  
+- [ngrok Docs](https://ngrok.com/docs) - Comprehensive tunneling documentation  
+
+### 🧠 Community Support  
+Join our Discord community or open GitHub issues for help!
+
+---
+
+## 📜 License  
 MIT License ©️ 2024 Spatial Computing Education Lab. See [LICENSE](LICENSE) for details.
 
 ---
 
-## 📞 Support  
-Join our Discord community or open GitHub issues for help!  
+## 📦 ngrok Integration Example  
+```bash
+# Start backend services locally with Express.js
+cd backend
+npm run dev
 
---- 
+# Expose local server externally using ngrok tunneling service
+ngrok http backend:3001 --subdomain=game-theory
 
-This README provides comprehensive guidance covering development workflows from local testing to deployment pipelines while emphasizing VisionOS-specific capabilities like spatial audio positioning and Core Haptics integration patterns discussed earlier.
+# You'll receive secure tunnel URL like:
+https://game-theory-12345678.ngrok.io
+```
